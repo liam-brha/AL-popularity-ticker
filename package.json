@@ -1,0 +1,22 @@
+{
+  "name": "al-popularity-ticker",
+  "version": "0.0.1",
+  "description": "Updates Anilist donator badge text periodically based on the average score of a show",
+  "main": "index.js",
+  "scripts": {
+    "deploy": "cd ./app && clasp push && clasp open"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/liam-brha/AL-popularity-ticker.git"
+  },
+  "author": "liam-brha",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/liam-brha/AL-popularity-ticker/issues"
+  },
+  "homepage": "https://github.com/liam-brha/AL-popularity-ticker#readme",
+  "devDependencies": {
+    "@google/clasp": "^2.4.2"
+  }
+}
