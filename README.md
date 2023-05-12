@@ -1,4 +1,4 @@
-# AL-popularity-ticker
+# AL-ticker
 OSHI ↗ 0.5% ↗  (99 %)
 
 ## Deployment
