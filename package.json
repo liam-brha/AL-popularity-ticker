@@ -1,6 +1,6 @@
 {
   "name": "al-popularity-ticker",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "Updates Anilist donator badge text periodically based on the average score of a show",
   "main": "index.js",
   "scripts": {
