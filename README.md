@@ -11,11 +11,11 @@ Once in the webUI, under project settings add the following Script Properties:
 
 | Property | Value |
 | -------- | ----- |
-| animeID | <animeId> |
-| token | <token> |
-| title | <customAnimeTitle> |
-| iteration | 0 |
-| priorData | {} |
+| `animeID` | `<animeId>` |
+| `token` | `<token>` |
+| `title` | `<customAnimeTitle>` |
+| `iteration` | `0` |
+| `priorData` | {} |
 
 ### Token generation
 
