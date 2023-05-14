@@ -3,7 +3,7 @@ OSHI ↗ 0.5% ↗  (99 %)
 
 ## Deployment
 
-Make an apps script project and push `./app`to it. Then add a trigger in the webUI to run every 2 hours
+Make an apps script project and push `./app`to it. Then add a trigger in the webUI to run once a day
 
 ### Configuration
 
@@ -14,8 +14,8 @@ Once in the webUI, under project settings add the following Script Properties:
 | `animeID` | `<animeId>` |
 | `token` | `<token>` |
 | `title` | `<customAnimeTitle>` |
-| `iteration` | `0` |
-| `priorData` | {} |
+| `lastScore` | `70` |
+| `scoreDiff` | `0` |
 
 ### Token generation
 

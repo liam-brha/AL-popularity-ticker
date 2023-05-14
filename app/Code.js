@@ -2,17 +2,15 @@ const ENV = PropertiesService.getScriptProperties();
 const TOKEN = ENV.getProperty("token");
 const ANIMEID = parseInt(ENV.getProperty("animeID"));
 const UTITLE = ENV.getProperty("title");
-const STATS = JSON.parse(ENV.getProperty("priorData"));
+const LASTSCORE = ENV.getProperty("lastScore");
 const URL = "https://graphql.anilist.co";
-
-// score trend is adjusted in 48 hour cycles
-const ITERATIONS = parseInt(ENV.getProperty("iteration"));
 
 async function main() {
   let sts = await getStats(ANIMEID);
   logStats(sts);
 
-  let bText = await createBadgeText(sts, STATS);
+  let bText = await createBadgeText(sts);
+  Logger.log(bText)
   setBadge(bText);
 }
 
@@ -60,18 +58,24 @@ function setBadge(text) {
 
 function createBadgeText({title, averageScore, popularity}) {
   let name = UTITLE || title;
-  let trendEmoji = getTrendEmoji(averageScore, STATS);
-  // only allowed 22 char
-  return `${name} ${trendEmoji} ${averageScore}% ${trendEmoji}`;
+  let scoreDiff = ENV.getProperty("scoreDiff");
+  let trendEmoji = getTrendEmoji(averageScore, LASTSCORE);
+  // only allowed 22 char OSHI ↗ 0.5% ↗ (99%)
+  return `${name} ${trendEmoji} ${scoreDiff}% ${trendEmoji} (${averageScore}%)`;
 }
 
-function getTrendEmoji(presentScore, {averageScore}) {
-  let scoreDiff = presentScore - averageScore;
+function getTrendEmoji(score, oldScore) {
+  Logger.log(`${score} ${oldScore}`)
+  let scoreDiff = ENV.getProperty("scoreDiff");
   let trend;
 
-  if (scoreDiff > 0) { trend = "up"}
-  if (scoreDiff < 0) { trend = "down" }
-  if (scoreDiff == 0) { trend = "flat" }
+  if (scoreDiff > 0) {
+    trend = "up"
+  } else if (scoreDiff < 0) { 
+    trend = "down"
+  } else {
+    trend = "flat"
+  }
 
   let emoji = {
     up: "⬆️",
@@ -81,13 +85,10 @@ function getTrendEmoji(presentScore, {averageScore}) {
   return emoji[trend];
 }
 
-// every 48 hours, adjust the score trend
+// log the last updated score difference
 function logStats(stats) {
-  if (ITERATIONS >= 24) {
-    ENV.setProperty("priorData", JSON.stringify(stats));
-    ENV.setProperty("iteration", "0");
-  }
-  else {
-    ENV.setProperty("iteration", String(ITERATIONS + 1));
+  if (stats.averageScore != LASTSCORE) {
+    ENV.setProperty("scoreDiff", String(parseFloat(stats.averageScore) - parseFloat(LASTSCORE)))
+    ENV.setProperty("lastScore", stats.averageScore);
   }
 }
