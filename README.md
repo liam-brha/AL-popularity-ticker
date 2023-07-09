@@ -1,5 +1,5 @@
 # AL-ticker
-OSHI ↗ 0.5% ↗  (99 %)
+OSHI ⬇️ -1% ⬇️  (99 %)
 
 ## Deployment
 
